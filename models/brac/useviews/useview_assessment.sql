@@ -19,7 +19,7 @@ SELECT
 *
 FROM(
     SELECT
-            "@timestamp"::timestamp AS "@timestamp",
+            "@timestamp"::timestamp without time zone AS "@timestamp",
             doc ->> '_id'::text AS uuid,
             doc ->> '_rev'::text AS rev_id,
             doc #>> '{contact,_id}'::text[] AS chw,
