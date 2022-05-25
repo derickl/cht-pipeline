@@ -4,7 +4,6 @@
     )
 }}
 
-CREATE OR REPLACE VIEW {{ this }} AS
 SELECT
     doc->>'type' AS type,
     *
