@@ -1,6 +1,6 @@
 {{
     config(
-        materialized = 'raw_sql',
+        materialized = 'view',
     )
 }}
 
