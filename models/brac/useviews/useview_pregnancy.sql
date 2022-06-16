@@ -57,6 +57,6 @@ FROM (
 	  doc->>'type' = 'data_record' AND
 		couchdb.doc ->> 'form' = 'pregnancy'
 {% if is_incremental() %}
-    AND "@timestamp" > (SELECT MAX("@timestamp") FROM {{ this }})
+    AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
 {% endif %}
 ) x
