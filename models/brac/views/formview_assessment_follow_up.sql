@@ -40,7 +40,7 @@ SELECT COALESCE((regexp_split_to_array(doc #>> '{fields,geolocation}'::text[], '
    doc #>> '{fields,group_better,patient_better_no}'::text[] AS patient_better_no,
    ''::text AS "meta/instanceID",
    doc ->> '_id'::text AS xmlforms_uuid,
-   to_timestamp((NULLIF(doc ->> 'reported_date', '')::bigint / 1000)::double precision) AS reported,
+   to_timestamp((NULLIF(doc ->> 'reported_date', '')::bigint / 1000)::double precision) AS reported
   FROM {{ ref("couchdb") }} form
     JOIN {{ ref("form_metadata") }} fm ON fm.uuid = (doc ->> '_id'::text)
     LEFT JOIN {{ ref("couchdb") }} patient ON (patient.doc ->> '_id'::text) = (doc #>> '{fields,patient_id}'::text[])
