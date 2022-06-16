@@ -22,3 +22,4 @@ WHERE
 
 {% if is_incremental() %}
     AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
+{% endif %}
