@@ -11,8 +11,12 @@
     )
 }}
 
+
 SELECT
 		{{ dbt_utils.surrogate_key(['reported', 'edd', 'uuid']) }} AS useview_pregnancy_reported_edd_uuid,
+		*
+FROM (
+	SELECT
 
         "@timestamp"::timestamp without time zone AS "@timestamp",
 		(couchdb.doc ->> '_id') as uuid,
@@ -53,5 +57,6 @@ SELECT
 	  doc->>'type' = 'data_record' AND
 		couchdb.doc ->> 'form' = 'pregnancy'
 {% if is_incremental() %}
-    AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
+    AND "@timestamp" > (SELECT MAX("@timestamp") FROM {{ this }})
 {% endif %}
+) x
