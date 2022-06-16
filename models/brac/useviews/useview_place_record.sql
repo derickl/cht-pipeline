@@ -8,4 +8,4 @@ FROM
     {{ ref("couchdb") }}
 WHERE
     doc->>'type' = 'data_record' AND
-    doc#>'{fields}' ? 'place_id'
+    doc#>>'{fields,place_id}' IS NOT NULL

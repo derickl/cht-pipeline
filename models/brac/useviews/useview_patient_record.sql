@@ -23,8 +23,8 @@ FROM
 	{{ ref("couchdb") }}
 WHERE
     doc->>'type' = 'data_record' AND
-	doc#>'{fields}' ? 'patient_id'
+	doc#>>'{fields,patient_id}' IS NOT NULL
 	{% if is_incremental() %}
-        AND COALESCE("@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }}), True)
+        AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
     {% endif %}
 ) x

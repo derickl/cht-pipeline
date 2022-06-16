@@ -34,5 +34,5 @@ SELECT
    FROM {{ ref("couchdb") }} form
   WHERE doc->>'type' = 'data_record' AND (doc ->> 'form'::text) = 'pregnancy_visit'::text
 {% if is_incremental() %}
-        AND COALESCE("@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }}), True)
+        AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
     {% endif %}
