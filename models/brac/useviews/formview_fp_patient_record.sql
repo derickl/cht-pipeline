@@ -24,4 +24,5 @@ SELECT
         to_timestamp((NULLIF(doc ->> 'reported_date', '')::bigint / 1000)::double precision) AS reported
     FROM {{ ref("couchdb") }} AS form
     WHERE
+        doc->>'type' = 'data_record' AND
     	(doc ->> 'form')::text IN ('family_planning', 'fp_follow_up_long_term', 'fp_follow_up_refill', 'fp_follow_up_prospective', 'fp_follow_up_short_term')
