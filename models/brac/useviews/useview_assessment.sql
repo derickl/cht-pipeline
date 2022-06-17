@@ -94,7 +94,7 @@ FROM(
         FROM {{ ref("couchdb") }} AS form
         WHERE  doc->>'type' = 'data_record' AND (doc ->> 'form'::text) = 'assessment'::text
         {% if is_incremental() %}
-            AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
+            AND "@timestamp" > {{ max_existing_timestamp('"@timestamp"') }}
         {% endif %}
 
 ) as x

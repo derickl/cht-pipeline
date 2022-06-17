@@ -57,5 +57,5 @@ SELECT
   LEFT JOIN {{ ref("raw_contacts") }} chp ON (chp.doc ->> '_id'::text) = contactview_chw.uuid
 
     {% if is_incremental() %}
-        WHERE "@timestamp" > (SELECT MAX("@timestamp") FROM {{ ref("raw_contacts") }})
+        WHERE raw_contacts."@timestamp" > {{ max_existing_timestamp('"@timestamp"', target_ref=ref("raw_contacts")) }}
     {% endif %}

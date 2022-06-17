@@ -71,6 +71,6 @@ FROM(
 			doc->>'type' = 'data_record' AND
 			doc ->> 'form' = 'postnatal_care'::text
 			{% if is_incremental() %}
-				AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
+				AND "@timestamp" > {{ max_existing_timestamp('"@timestamp"') }}
 			{% endif %}
 ) x

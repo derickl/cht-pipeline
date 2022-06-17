@@ -36,6 +36,6 @@ FROM(
 		 doc->>'type' = 'data_record' AND
 		 doc->>'form' = 'family_survey'
     {% if is_incremental() %}
-            AND "@timestamp" > (SELECT MAX({{ this }}."@timestamp") FROM {{ this }})
+            AND "@timestamp" > {{ max_existing_timestamp('"@timestamp"') }}
     {% endif %}
 ) x
