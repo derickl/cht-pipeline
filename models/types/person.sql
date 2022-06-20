@@ -21,5 +21,5 @@ WHERE
     doc->>'type' = 'person'
 
 {% if is_incremental() %}
-    AND COALESCE("@timestamp" > {{ max_existing_timestamp('"@timestamp"') }}, True)
+    AND "@timestamp" > {{ max_existing_timestamp('"@timestamp"') }}
 {% endif %}
