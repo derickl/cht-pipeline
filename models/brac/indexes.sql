@@ -1,6 +1,7 @@
 {{ config(schema='v1', materialized = 'raw_sql', 
 post_hook=[
       "ANALYZE {{this.schema}}.couchdb"
+]
  )}} 
 
 CREATE INDEX IF NOT EXISTS couchdb_doc_id ON {{ env_var('ROOT_POSTGRES_SCHEMA') }}.{{ env_var('POSTGRES_TABLE') }} ((doc ->> '_id'::text) text_ops);
