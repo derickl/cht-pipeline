@@ -1,6 +1,6 @@
 {{ config(schema='v1', materialized = 'raw_sql', 
 post_hook=[
-      "ANALYZE {{this.schema}}.couchdb"
+      "ANALYZE {{ env_var('ROOT_POSTGRES_SCHEMA') }}.{{ env_var('POSTGRES_TABLE') }}"
 ]
  )}} 
 
