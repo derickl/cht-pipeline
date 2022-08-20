@@ -1,5 +1,5 @@
 {{ config(schema='v1', materialized = 'raw_sql'), 
-"post_hook"=[
+post_hook=[
       "ANALYZE {{this.schema}}.couchdb"
  }} 
 
