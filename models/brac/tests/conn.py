@@ -15,17 +15,6 @@ class bcolors:
 
 
 try:
-    # Connect to an existing database
-    # conn = psycopg2.connect(
-    # host="cht-pipeline-test.caseqzeqqeog.eu-west-2.rds.amazonaws.com",
-    # database="cht_pipeline_test",
-    # user="postgres",
-    # password="Bc5Tpy34vQaxAbw");
-
-    conn = psycopg2.connect(
-    database="brac-ug",
-    user="postgres",
-    password="");
 
     # Create a cursor to perform database operations
     cursor = conn.cursor()
