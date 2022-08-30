@@ -27,12 +27,12 @@ queries_2 = {}
 
 queries["get_hmis_data"]= """
     SELECT t.chp_uuid, t.date, md5((ROW(t.*)::TEXT)) as hash
-    FROM get_hmis_data('2021-03-01', '2021-03-03') t ;
+    FROM get_hmis_data('2021-01-01', '2021-01-31') t ;
 """
 
 queries_2["get_hmis_data"]= """
     SELECT t.chp_uuid, t.date, md5((ROW(t.*)::TEXT)) as hash
-    FROM dbt_clone.get_hmis_data('2021-03-01', '2021-03-03') t;
+    FROM dbt_clone.get_hmis_data('2021-01-01', '2021-01-31') t;
 """
 
 # queries["get_assessment_data"]= """

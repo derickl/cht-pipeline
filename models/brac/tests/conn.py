@@ -43,7 +43,7 @@ try:
             arrayHaystack = result[0]
             foundCounter = result[1]
     
-    print(foundCounter, "/", len(records), " records from Brac-ug match cht_pipeline_test dbt db" )
+    print(foundCounter, " out of ", len(records), " records from Brac-ug DB match cht_pipeline_test dbt DB" )
     print(f'Time taken: {time.time() - start}')
 
 except (Exception, Error) as error:
