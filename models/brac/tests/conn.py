@@ -1,6 +1,13 @@
+import sys
+import time
 import psycopg2
 from psycopg2 import Error
+from dbsettings import *
 from vars import *
+
+start = time.time()
+
+foundCounter = 0
 
 class bcolors:
     HEADER = '\033[95m'
@@ -15,39 +22,29 @@ class bcolors:
 
 
 try:
-
-    # Create a cursor to perform database operations
     cursor = conn.cursor()
-    # Print PostgreSQL details
-    print("PostgreSQL server information")
-    print(conn.get_dsn_parameters(), "\n")
-    # Executing a SQL query
-    cursor.execute("SELECT version();")
+    cursor2 = conn2.cursor()
     # Fetch result
-    record = cursor.fetchone()
-    print("You are connected to - ", record, "\n")
-
-    # Executing a second SQL query
+    
     for key in queries:
+        print(queries[key])
+    
         cursor.execute(queries[key])
-        # Fetch result
-        record = cursor.fetchone()
-        print("You are connected to - ", record, "\n")
-        if(record != 'None'):
-            if record[1] == record[2]:
-                print(bcolors.OKGREEN + "Test " + key + " passed" + bcolors.ENDC)
-            else:
-                print("record1: " + record[1] + " record2: " + record[2])
-            print(bcolors.WARNING + "Test " + key + " failed" + bcolors.ENDC)
+        cursor2.execute(queries_2[key])
 
-    # cursor.execute(query2)
-    # # Fetch result
-    # record = cursor.fetchone()
-    # print("You are connected to - ", record, "\n")
-    # if record[1] == record[2]:
-    #     print(bcolors.OKGREEN + "Test get_hmis_data() passed" + bcolors.ENDC)
-    # else:
-    #     print(bcolors.WARNING + "Test get_hmis_data() failed" + bcolors.ENDC)
+        # Fetch result
+        records = cursor.fetchall()
+        arrayHaystack = cursor2.fetchall()
+        
+        for index, key_record in enumerate(records):
+            # print(record)
+            print(key_record[2])
+            result = search_hash(key_record[2], arrayHaystack, foundCounter)
+            arrayHaystack = result[0]
+            foundCounter = result[1]
+    
+    print(foundCounter, "/", len(records), " records from Brac-ug match cht_pipeline_test dbt db" )
+    print(f'Time taken: {time.time() - start}')
 
 except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
