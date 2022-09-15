@@ -36,9 +36,10 @@ try:
         records = cursor.fetchall()
         arrayHaystack = cursor2.fetchall()
         
+        print("Query has been fetched succesfully")
         for index, key_record in enumerate(records):
             # print(record)
-            print(key_record[2])
+            print("CHW: ", key_record[0]," MD5: ",  key_record[2])
             result = search_hash(key_record[2], arrayHaystack, foundCounter)
             arrayHaystack = result[0]
             foundCounter = result[1]
